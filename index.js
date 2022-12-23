@@ -10,18 +10,27 @@ function Book(title, author, pages, readStatus) {
 	this.title = title;
 	this.author = author;
 	this.pages = pages;
-	this.readStatus = readStatus = readStatus == true ? "read" : "not read yet";
+	this.readStatus = readStatus = readStatus == true ? "Read" : "Not read yet";
+	this.changeStatus = () => {
+		this.readStatus = this.readStatus == "Read" ? "Not read yet" : "Read";
+	};
 }
 const displayLibrary = () => {
 	const books = `${myLibrary
 		.map(
 			(b, i) =>
 				`<div class="book">
-             <button type="button" class="btn btn-danger  my-2" onclick="removeBookFromLibrary(${i})">X</button>
+                <div class="remove">
+                <button type="button" class="btn btn-danger my-2" onclick="removeBookFromLibrary(${i})">X</button>
+                </div>
             <p>Title: ${b.title}</p>
             <p>Author: ${b.author}</p>
             <p>Pages: ${b.pages}</p>
-            <p>Status: ${b.readStatus}</p>
+            <button type="button" class="btn ${
+							b.readStatus == "Read" ? "btn-success" : "btn-secondary"
+						}" id="read-status" onclick="changeReadStatus(${i})">${
+					b.readStatus
+				}</button>
         </div>`
 		)
 		.join("")}`;
@@ -38,7 +47,13 @@ const addBookToLibrary = () => {
 	displayLibrary();
 };
 
-const removeBookFromLibrary = (index) => {
-	myLibrary.splice(index, 1);
+const removeBookFromLibrary = (i) => {
+	myLibrary.splice(i, 1);
+	displayLibrary();
+};
+
+const changeReadStatus = (i) => {
+	const book = myLibrary[i];
+	book.changeStatus();
 	displayLibrary();
 };

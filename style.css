@@ -21,3 +21,7 @@ h1 {
 	padding: 20px;
 	width: 300px;
 }
+.remove {
+	display: flex;
+	justify-content: flex-end;
+}
