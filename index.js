@@ -1,37 +1,44 @@
 const libraryGrid = document.getElementById("library-grid");
-let myLibrary = [];
+const bookTitle = document.getElementById("title");
+const bookAuthor = document.getElementById("author");
+const bookPages = document.getElementById("pages");
+const bookStatus = document.getElementById("read-status");
+
+const myLibrary = [];
 
 function Book(title, author, pages, readStatus) {
 	this.title = title;
 	this.author = author;
 	this.pages = pages;
 	this.readStatus = readStatus = readStatus == true ? "read" : "not read yet";
-	this.info = () => console.log(title, author, pages + " pages", readStatus);
 }
-
-const addBookToLibrary = () => {
-	const title = prompt("What is the title of the book?");
-	const author = prompt("Who is the author?");
-	const pages = prompt("How many pages");
-	const readStatus = prompt("Have you finished reading the book?");
-	const book = new Book(title, author, pages, readStatus);
-	myLibrary.push(book);
-};
-
-const displayBooks = () => {
-	myLibrary.forEach(() => {
-		const bookList = `${myLibrary
-			.map((b) => {
+const displayLibrary = () => {
+	const books = `${myLibrary
+		.map(
+			(b, i) =>
 				`<div class="book">
+             <button type="button" class="btn btn-danger  my-2" onclick="removeBookFromLibrary(${i})">X</button>
             <p>Title: ${b.title}</p>
             <p>Author: ${b.author}</p>
             <p>Pages: ${b.pages}</p>
-            <p>Status: ${b.status}</p>
-        </div>`;
-			})
-			.join("")}`;
-		libraryGrid.innerHTML = bookList;
-	});
+            <p>Status: ${b.readStatus}</p>
+        </div>`
+		)
+		.join("")}`;
+	libraryGrid.innerHTML = books;
 };
 
-addBookToLibrary();
+const addBookToLibrary = () => {
+	const title = bookTitle.value;
+	const author = bookAuthor.value;
+	const pages = bookPages.value;
+	const readStatus = bookStatus.checked;
+	const book = new Book(title, author, pages, readStatus);
+	myLibrary.push(book);
+	displayLibrary();
+};
+
+const removeBookFromLibrary = (index) => {
+	myLibrary.splice(index, 1);
+	displayLibrary();
+};

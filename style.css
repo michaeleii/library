@@ -1,8 +1,23 @@
+.top {
+	margin-bottom: 50px;
+	padding-bottom: 20px;
+	border-bottom: solid 2px black;
+}
+h1 {
+	text-align: center;
+}
+
+.center {
+	display: flex;
+	justify-content: center;
+}
 #library-grid {
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
+	grid-template-columns: repeat(5, 1fr);
+	gap: 50px;
 }
 .book {
-	padding: 20px;
 	border: solid 2px black;
+	padding: 20px;
+	width: 300px;
 }
