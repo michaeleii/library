@@ -6,15 +6,18 @@ const bookStatus = document.getElementById("read-status");
 
 const myLibrary = [];
 
-function Book(title, author, pages, readStatus) {
-	this.title = title;
-	this.author = author;
-	this.pages = pages;
-	this.readStatus = readStatus = readStatus == true ? "Read" : "Not read yet";
-	this.changeStatus = () => {
-		this.readStatus = this.readStatus == "Read" ? "Not read yet" : "Read";
-	};
+class Book {
+	constructor(title, author, pages, readStatus) {
+		this.title = title;
+		this.author = author;
+		this.pages = pages;
+		this.readStatus = readStatus = readStatus == true ? "Read" : "Not read yet";
+		this.changeStatus = () => {
+			this.readStatus = this.readStatus == "Read" ? "Not read yet" : "Read";
+		};
+	}
 }
+
 const displayLibrary = () => {
 	const books = `${myLibrary
 		.map(
